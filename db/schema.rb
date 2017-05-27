@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526135852) do
+ActiveRecord::Schema.define(version: 20170527103800) do
+
+  create_table "meetings", force: :cascade do |t|
+    t.string  "place",      limit: 255, null: false
+    t.date    "date",                   null: false
+    t.time    "time",                   null: false
+    t.integer "creator_id",             null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 100, null: false
