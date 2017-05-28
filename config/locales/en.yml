@@ -1,4 +1,6 @@
 en:
+  meeting:
+    welcome: "Welcome %{name}!"
   time:
     formats:
       very_short: "%H:%M"

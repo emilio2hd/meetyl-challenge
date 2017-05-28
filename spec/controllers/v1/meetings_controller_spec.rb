@@ -55,6 +55,60 @@ RSpec.describe V1::MeetingsController, type: :controller do
     end
   end
 
+  describe 'POST #invite' do
+    let(:user) { create(:user) }
+    let(:meeting) { create(:meeting) }
+    let(:invite_params) { { id: meeting.id, user_id: meeting.creator_id, invitation: { invitee_id: user.id } } }
+
+    it 'should create a new invitation' do
+      expect { post :invite, params: invite_params } .to change(Invitation, :count).by(1)
+    end
+
+    it 'should return the invitation link' do
+      post :invite, params: invite_params
+      expect(json_response_body['invitation']).to_not be_empty
+    end
+  end
+
+  describe 'GET #access' do
+    let(:invitation) { create(:invitation) }
+    let(:meeting_id) { invitation.meeting_id }
+    let(:access_code) { invitation.access_code }
+
+    before { get :access, params: { id: meeting_id, access_code: access_code } }
+
+    shared_examples 'inaccessible meeting' do
+      it { expect(response).to have_http_status(:not_found) }
+    end
+
+    context 'with valid meeting' do
+      context 'with valid access code' do
+        it 'should be able to access the meeting' do
+          expect(response).to have_http_status(:ok)
+          expect(json_response_body['message']).to eq("Welcome #{invitation.invitee.name}!")
+        end
+      end
+
+      context 'with invalid access code' do
+        let(:access_code) { '-1' }
+        it_should_behave_like 'inaccessible meeting'
+      end
+    end
+
+    context 'with invalid meeting' do
+      context 'with valid access code' do
+        let(:meeting_id) { '-1' }
+        it_should_behave_like 'inaccessible meeting'
+      end
+
+      context 'with valid access code' do
+        let(:meeting_id) { '-1' }
+        let(:access_code) { '-1' }
+        it_should_behave_like 'inaccessible meeting'
+      end
+    end
+  end
+
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_place) { 'new place' }

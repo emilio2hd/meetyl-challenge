@@ -5,7 +5,7 @@ Design and code JSON API endpoints in the latest Rails.
 #### A user (user_1) (inviter) should be able to
 
 * - [x] Create a meeting specifying a place, date, and time
-* - [ ] Generate unique url for an invitation that will allow a user to access the meeting
+* - [x] Generate unique url for an invitation that will allow a user to access the meeting
 
 #### A user (user_(1+n)) (invitee) should be able to
 * - [ ] Retrieve information about a meeting or invitation if they have an invitation
