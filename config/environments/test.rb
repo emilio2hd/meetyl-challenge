@@ -18,6 +18,8 @@ Rails.application.configure do
     'Cache-Control' => 'public, max-age=3600'
   }
 
+  Rails.application.routes.default_url_options[:host] = 'test.com'
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
@@ -39,4 +41,9 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+  end
 end
