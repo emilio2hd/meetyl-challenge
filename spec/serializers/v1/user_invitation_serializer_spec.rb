@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe V1::InvitationSerializer, type: :serializer do
+RSpec.describe V1::UserInvitationSerializer, type: :serializer do
   before(:all) do
     @invitation = create(:invitation)
-    serializer = V1::InvitationSerializer.new(@invitation)
+    serializer = V1::UserInvitationSerializer.new(@invitation)
     @serialization = ActiveModelSerializers::Adapter.create(serializer)
   end
 

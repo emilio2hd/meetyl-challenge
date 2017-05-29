@@ -1,5 +1,5 @@
 module V1
-  class InvitationSerializer < ActiveModel::Serializer
+  class UserInvitationSerializer < ActiveModel::Serializer
     include Rails.application.routes.url_helpers
 
     attributes :invitee, :meeting_link

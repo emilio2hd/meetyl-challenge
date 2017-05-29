@@ -35,7 +35,7 @@ module V1
       invitation.meeting = @meeting
 
       if invitation.save
-        render json: invitation, status: :created, serializer: V1::InvitationSerializer
+        render json: invitation, status: :created, serializer: V1::UserInvitationSerializer
       else
         render json: { errors: invitation.errors }, status: :bad_request
       end
