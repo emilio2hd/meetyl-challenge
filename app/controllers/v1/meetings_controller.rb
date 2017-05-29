@@ -43,9 +43,7 @@ module V1
 
     def access
       invitation = Invitation.joins(:meeting)
-                             .find_by(meeting_id: params[:id], access_code: params[:access_code])
-
-      raise ActiveRecord::RecordNotFound if invitation.nil?
+                             .find_by!(meeting_id: params[:id], access_code: params[:access_code])
 
       render json: { message: I18n.translate('meeting.welcome', name: invitation.invitee.name) }
     end
