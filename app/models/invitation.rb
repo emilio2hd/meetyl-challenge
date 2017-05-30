@@ -1,4 +1,6 @@
 class Invitation < ApplicationRecord
+  enum status: [ :pending, :accepted, :declined ]
+
   belongs_to :meeting
   belongs_to :invitee, class_name: 'User', foreign_key: 'invitee_id'
 

@@ -6,6 +6,7 @@ RSpec.describe Invitation, type: :model do
 
   it { is_expected.to belong_to(:meeting) }
   it { is_expected.to belong_to(:invitee).class_name('User').with_foreign_key('invitee_id') }
+  it { is_expected.to define_enum_for(:status).with([:pending, :accepted, :declined]) }
 
   describe 'access_code generating' do
     before do
