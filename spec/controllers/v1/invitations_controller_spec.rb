@@ -50,6 +50,25 @@ RSpec.describe V1::InvitationsController, type: :controller do
         expect(response).to have_http_status(:ok)
         expect(invitation.status).to eq('accepted')
       end
+
+      context 'when action is not executed' do
+        before do
+          form = InvitationActionForm.new
+          form.errors.add(:base, :some_error)
+          result = Invitation::Action::ActionResult.new(form, true)
+
+          action_mock = double(Invitation::Action::Accept)
+          allow(action_mock).to receive(:execute!).and_return(result)
+          expect(Invitation::ActionLocator).to receive(:lookup).with('accept').and_return(action_mock)
+        end
+
+        it 'should render the errors' do
+          get :execute, params: { id: invitation.to_param, user_id: invitee.id, invitation: { action: 'accept' } }
+
+          expect(response).to have_http_status(:bad_request)
+          expect(json_response_body['errors']).to_not be_empty
+        end
+      end
     end
 
     context 'with invalid params' do

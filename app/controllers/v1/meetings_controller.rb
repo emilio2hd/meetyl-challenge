@@ -19,7 +19,7 @@ module V1
       if meeting.save
         render json: meeting, status: :created, serializer: V1::MeetingSerializer
       else
-        render json: { errors: meeting.errors }, status: :bad_request
+        render json: meeting, status: :bad_request, adapter: :attributes, serializer: V1::ErrorSerializer
       end
     end
 
@@ -27,7 +27,7 @@ module V1
       if @meeting.update(meeting_params)
         render json: @meeting, serializer: V1::MeetingSerializer
       else
-        render json: { errors: @meeting.errors }, status: :bad_request
+        render json: @meeting, status: :bad_request, adapter: :attributes, serializer: V1::ErrorSerializer
       end
     end
 
@@ -38,13 +38,17 @@ module V1
       if invitation.save
         render json: invitation, status: :created, serializer: V1::UserInvitationSerializer
       else
-        render json: { errors: invitation.errors }, status: :bad_request
+        render json: invitation, status: :bad_request, adapter: :attributes, serializer: V1::ErrorSerializer
       end
     end
 
     def access
       invitation = Invitation.joins(:meeting)
                              .find_by!(meeting_id: params[:id], access_code: params[:access_code])
+
+      unless invitation.accepted?
+        return render json: { error: I18n.translate('meeting.invitation_not_accepted') }, status: :bad_request
+      end
 
       render json: { message: I18n.translate('meeting.welcome', name: invitation.invitee.name) }
     end

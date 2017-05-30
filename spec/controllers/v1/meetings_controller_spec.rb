@@ -83,9 +83,20 @@ RSpec.describe V1::MeetingsController, type: :controller do
 
     context 'with valid meeting' do
       context 'with valid access code' do
-        it 'should be able to access the meeting' do
-          expect(response).to have_http_status(:ok)
-          expect(json_response_body['message']).to eq("Welcome #{invitation.invitee.name}!")
+        context 'invitee has not accepted the invitation' do
+          it 'should be able to access the meeting' do
+            expect(response).to have_http_status(:bad_request)
+            expect(json_response_body['error']).to_not be_empty
+          end
+        end
+
+        context 'invitee has accepted the invitation' do
+          let(:invitation) { create(:invitation, status: :accepted) }
+
+          it 'should be able to access the meeting' do
+            expect(response).to have_http_status(:ok)
+            expect(json_response_body['message']).to eq("Welcome #{invitation.invitee.name}!")
+          end
         end
       end
 

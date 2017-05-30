@@ -8,6 +8,26 @@ class Invitation < ApplicationRecord
 
   before_save :generate_access_code
 
+  def accepted!
+    return if self[:status] == :accepted
+
+    transaction do
+      self[:status] = :accepted
+      meeting.increment(:participants_count).save!
+      save!
+    end
+  end
+
+  def declined!
+    return if self[:status] == :declined
+
+    transaction do
+      self[:status] = :declined
+      meeting.decrement(:participants_count).save!
+      save!
+    end
+  end
+
   private
 
   def generate_access_code

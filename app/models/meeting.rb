@@ -12,6 +12,17 @@ class Meeting < ApplicationRecord
 
   validates :place, :creator, presence: true
   validates :place, length: { maximum: 255 }
+  validate :check_maximum_participants
   validates_date :date
   validates_time :time
+
+  private
+
+  def check_maximum_participants
+    return if self[:maximum_participants].zero?
+
+    if self[:participants_count] > self[:maximum_participants]
+      errors.add(:maximum_participants, 'Meeting overbooked, maximum participants has been reached')
+    end
+  end
 end
