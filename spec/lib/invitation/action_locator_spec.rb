@@ -23,6 +23,6 @@ RSpec.describe Invitation::ActionLocator do
   end
 
   it 'should check if the action exist' do
-    expect(subject.has_action?(:decline)).to be_truthy
+    expect(subject.action?(:decline)).to be_truthy
   end
 end

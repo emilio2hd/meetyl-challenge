@@ -13,7 +13,7 @@ module Invitation::ActionLocator
       @actions[action_name.to_sym].new
     end
 
-    def has_action?(action_name)
+    def action?(action_name)
       @actions.key? action_name.to_sym
     end
   end

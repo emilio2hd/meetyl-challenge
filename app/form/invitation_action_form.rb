@@ -12,6 +12,6 @@ class InvitationActionForm
 
   def check_action_availability
     return if action.to_s.empty?
-    errors.add(:action, "action '#{action}' not available") unless Invitation::ActionLocator.has_action? action
+    errors.add(:action, "action '#{action}' not available") unless Invitation::ActionLocator.action? action
   end
 end
