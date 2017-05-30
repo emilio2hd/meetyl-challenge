@@ -8,9 +8,9 @@ Design and code JSON API endpoints in the latest Rails.
 * - [x] Generate unique url for an invitation that will allow a user to access the meeting
 
 #### A user (user_(1+n)) (invitee) should be able to
-* - [ ] Retrieve information about a meeting or invitation if they have an invitation
-* - [ ] Take action on the invitation
-* - [ ] Check the status of an invitation they received (accepted, declined, etc)
+* - [x] Retrieve information about a meeting or invitation if they have an invitation
+* - [x] Take action on the invitation
+* - [x] Check the status of an invitation they received (accepted, declined, etc)
 
 #### Bonus points
 

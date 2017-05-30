@@ -24,4 +24,22 @@ RSpec.describe Meeting, type: :model do
       expect(subject.save).to be_truthy
     end
   end
+
+  describe '.of_user' do
+    let(:user) { create(:user) }
+
+    context 'as creator' do
+      it 'should return the meeting' do
+        create(:meeting, creator: user)
+        expect(Meeting.of_user(user.id).count).to eq(1)
+      end
+    end
+
+    context 'as invitee' do
+      it 'should return the meeting' do
+        create(:invitation, invitee: user)
+        expect(Meeting.of_user(user.id).count).to eq(1)
+      end
+    end
+  end
 end

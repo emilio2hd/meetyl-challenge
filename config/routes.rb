@@ -6,6 +6,13 @@ Rails.application.routes.draw do
           post :invite
         end
       end
+
+      resources :invitations do
+        member do
+          get :status, to: 'invitations#check_status'
+          put :execute
+        end
+      end
     end
 
     get 'meetings/:id/:access_code', to: 'meetings#access', as: :meeting_access

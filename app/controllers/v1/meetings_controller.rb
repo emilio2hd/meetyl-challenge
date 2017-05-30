@@ -1,15 +1,16 @@
 module V1
   class MeetingsController < ApplicationController
-    before_action :set_meeting, only: [:show, :update, :invite]
+    before_action :set_meeting, only: [:update, :invite]
 
     def index
-      meetings = Meeting.includes(:creator).all
+      meetings = Meeting.of_user(params[:user_id])
 
       render json: meetings, each_serializer: V1::MeetingSerializer
     end
 
     def show
-      render json: @meeting, serializer: V1::MeetingSerializer
+      meeting = Meeting.of_user(params[:user_id]).take!
+      render json: meeting, serializer: V1::MeetingSerializer
     end
 
     def create
@@ -35,7 +36,7 @@ module V1
       invitation.meeting = @meeting
 
       if invitation.save
-        render json: invitation, status: :created, serializer: V1::InvitationSerializer
+        render json: invitation, status: :created, serializer: V1::UserInvitationSerializer
       else
         render json: { errors: invitation.errors }, status: :bad_request
       end
@@ -43,9 +44,7 @@ module V1
 
     def access
       invitation = Invitation.joins(:meeting)
-                             .find_by(meeting_id: params[:id], access_code: params[:access_code])
-
-      raise ActiveRecord::RecordNotFound if invitation.nil?
+                             .find_by!(meeting_id: params[:id], access_code: params[:access_code])
 
       render json: { message: I18n.translate('meeting.welcome', name: invitation.invitee.name) }
     end
@@ -53,7 +52,7 @@ module V1
     private
 
     def set_meeting
-      @meeting = Meeting.find(params[:id])
+      @meeting = Meeting.find_by(creator_id: params[:user_id], id: params[:id])
     end
 
     def invitation_params
