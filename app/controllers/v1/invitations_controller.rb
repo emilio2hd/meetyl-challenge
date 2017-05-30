@@ -18,13 +18,17 @@ module V1
     end
 
     def execute
-      form = InvitationActionForm.new(action_params)
+      result = form = InvitationActionForm.new(action_params)
+
       if form.valid?
-        result = Invitation::ActionLocator.lookup(form.action).execute!(@invitation)
-        render json: result, serializer: V1::InvitationStatusSerializer
-      else
-        render json: { errors: form.errors }, status: :bad_request
+        action_result = Invitation::ActionLocator.lookup(form.action).execute!(@invitation)
+
+        return render json: action_result.result, serializer: V1::InvitationStatusSerializer unless action_result.error?
+
+        result = action_result.result
       end
+
+      render json: result, status: :bad_request, adapter: :attributes, serializer: V1::ErrorSerializer
     end
 
     private

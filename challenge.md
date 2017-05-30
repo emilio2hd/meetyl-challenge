@@ -14,9 +14,9 @@ Design and code JSON API endpoints in the latest Rails.
 
 #### Bonus points
 
-* - [ ] Specify the maximum number of people that may accept before the meeting is overbooked
+* - [x] Specify the maximum number of people that may accept before the meeting is overbooked
     * When the maximum number of acceptances is reached, the meeting is fully booked, one more and it would be overbooked.
-* - [ ] Close off any fully booked meetings to anyone that has not yet accepted
+* - [x] Close off any fully booked meetings to anyone that has not yet accepted
     * The invitation must be accepted to count towards the meetings attandance.
 
 #### Even more points

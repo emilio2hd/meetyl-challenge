@@ -1,6 +1,7 @@
 en:
   meeting:
     welcome: "Welcome %{name}!"
+    invitation_not_accepted: "You must accept the invitation before access the meeting"
   time:
     formats:
       very_short: "%H:%M"

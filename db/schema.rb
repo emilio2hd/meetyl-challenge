@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529015435) do
+ActiveRecord::Schema.define(version: 20170530015247) do
 
   create_table "invitations", force: :cascade do |t|
     t.integer "meeting_id",                          null: false
@@ -22,10 +22,12 @@ ActiveRecord::Schema.define(version: 20170529015435) do
   end
 
   create_table "meetings", force: :cascade do |t|
-    t.string  "place",      limit: 255, null: false
-    t.date    "date",                   null: false
-    t.time    "time",                   null: false
-    t.integer "creator_id",             null: false
+    t.string  "place",                limit: 255,             null: false
+    t.date    "date",                                         null: false
+    t.time    "time",                                         null: false
+    t.integer "creator_id",                                   null: false
+    t.integer "maximum_participants",             default: 0, null: false
+    t.integer "participants_count",               default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

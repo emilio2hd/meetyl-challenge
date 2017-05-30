@@ -2,11 +2,16 @@ require 'invitation/action_locator'
 
 class InvitationActionForm
   include ActiveModel::Model
+  include ActiveModel::Serialization
 
   attr_accessor :action
 
   validates :action, presence: true
   validate :check_action_availability
+
+  def attributes
+    { 'action' => nil, 'errors' => nil }
+  end
 
   private
 

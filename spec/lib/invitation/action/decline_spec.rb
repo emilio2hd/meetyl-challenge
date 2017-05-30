@@ -6,8 +6,12 @@ RSpec.describe Invitation::Action::Decline do
     let(:invitation) { create(:invitation) }
 
     before do
-      subject.execute!(invitation)
+      @result = subject.execute!(invitation)
       invitation.reload
+    end
+
+    it 'should return an action result' do
+      expect(@result).to be_kind_of(Invitation::Action::ActionResult)
     end
 
     it 'should change the status to accepted' do
