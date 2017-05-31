@@ -16,7 +16,19 @@ class Meeting < ApplicationRecord
   validates_date :date
   validates_time :time
 
+  after_commit :fire_recurrence_invitation
+
   private
+
+  def fire_recurrence_invitation
+    InvitationRecurrence.all_from(creator.id).find_each(&method(:invite_if_match))
+  end
+
+  def invite_if_match(recurrence)
+    Invitation.create!(meeting_id: id, invitee_id: recurrence.user_id) if recurrence.match?(date)
+  rescue ActiveRecordError => error
+    logger.error(error)
+  end
 
   def check_maximum_participants
     return if self[:maximum_participants].zero?

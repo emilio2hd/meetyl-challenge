@@ -42,4 +42,40 @@ RSpec.describe Meeting, type: :model do
       end
     end
   end
+
+  context 'when has invitation recurrence' do
+    let(:creator) { create(:user) }
+    let(:invitee) { create(:user) }
+    let(:meeting) { build(:meeting, creator: creator, date: '2017-05-31') }
+    let(:rule_for_every_wednesday) do
+      IceCube::Schedule.new { |schedule| schedule.add_recurrence_rule(IceCube::Rule.weekly.day(:wednesday)) }
+    end
+    let(:rule_for_every_tuesday) do
+      IceCube::Schedule.new { |schedule| schedule.add_recurrence_rule(IceCube::Rule.weekly.day(:tuesday)) }
+    end
+
+    context 'and matches with meeting date' do
+      before { InvitationRecurrence.create(creator: creator, user: invitee, rule: rule_for_every_wednesday) }
+
+      it 'should save the meeting' do
+        expect { meeting.save! }.to change(Meeting, :count).by(1)
+      end
+
+      it 'should create an invitation' do
+        expect { meeting.save! }.to change(Invitation, :count).by(1)
+      end
+    end
+
+    context 'and does not match with meeting date' do
+      before { InvitationRecurrence.create(creator: creator, user: invitee, rule: rule_for_every_tuesday) }
+
+      it 'should save the meeting' do
+        expect { meeting.save! }.to change(Meeting, :count).by(1)
+      end
+
+      it 'should should not create an invitation' do
+        expect { meeting.save! }.to_not change(Invitation, :count)
+      end
+    end
+  end
 end
