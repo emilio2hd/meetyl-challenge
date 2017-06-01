@@ -8,16 +8,16 @@ module Recurrence
     @creators = {}
 
     class << self
-      def add(recurrence_type, recurrence_creator_klass = nil)
-        @creators[recurrence_type] = recurrence_creator_klass
+      def add(recurrence_type, creator_klass = nil)
+        @creators[recurrence_type] = creator_klass
       end
 
       def parse(input)
         params = input.symbolize_keys
         recurrence_type = params[:recurrence].to_s.to_sym
 
-        recurrence_creator_klass = @creators[recurrence_type]
-        recurrence_creator_klass.new(params).create
+        creator_klass = @creators[recurrence_type]
+        creator_klass.new(params).create
       end
 
       def creators?(recurrence_type)
