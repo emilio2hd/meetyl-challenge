@@ -12,79 +12,53 @@ module Recurrence
       end
 
       def create_daily(params)
-        interval = 1
-        if params.key?(:options) && params[:options].is_a?(Hash)
-          opt_interval = params[:options][:interval].to_s.to_i
-          interval = opt_interval unless opt_interval.zero?
-        end
-
-        IceCube::Rule.daily(interval)
+        create_rule(:daily, params)
       end
 
       def create_weekly(params)
-        interval = 1
+        rule = create_rule(:weekly, params)
 
-        if params.key?(:options) && params[:options].is_a?(Hash)
-          opt_interval = params[:options][:interval].to_s.to_i
-          interval = opt_interval unless opt_interval.zero?
-        end
-
-        rule = IceCube::Rule.weekly(interval)
-
-        if params.key?(:options) && params[:options].key?(:day) && params[:options][:day].is_a?(Array)
-          days = params[:options][:day].map { |day| day =~ /\d/ ? day.to_i : day }
-          days.map! { |day| day.is_a?(String) ? day.to_sym : day}
-          rule.day(days)
-        end
+        day_list = Array(params[:options][:day]).map! { |day| day =~ /\d/ ? day.to_i : day.to_sym }
+        rule.day(day_list)
 
         rule
       end
 
       def create_monthly(params)
-        interval = 1
+        rule = create_rule(:monthly, params)
 
-        if params.key?(:options) && params[:options].is_a?(Hash)
-          opt_interval = params[:options][:interval].to_s.to_i
-          interval = opt_interval unless opt_interval.zero?
-        end
+        day_of_month_list = Array(params[:options][:day_of_month]).map!(&:to_i)
+        rule.day_of_month(day_of_month_list)
 
-        rule = IceCube::Rule.monthly(interval)
-
-        if params.key?(:options) && params[:options].key?(:day_of_month) && params[:options][:day_of_month].is_a?(Array)
-          days = params[:options][:day_of_month].collect(&:to_i)
-          rule.day_of_month(*days)
-        end
-
-        if params.key?(:options) && params[:options].key?(:day_of_week) && params[:options][:day_of_week].is_a?(Hash)
-          params[:options][:day_of_week].each do |key, value|
-            rule.day_of_week(key.to_sym => value.map(&:to_i))
-          end
+        day_of_week = Hash.try_convert(params[:options][:day_of_week]) || {}
+        day_of_week.each do |key, value|
+          rule.day_of_week(key.to_sym => Array(value).map(&:to_i))
         end
 
         rule
       end
 
       def create_yearly(params)
-        interval = 1
+        rule = create_rule(:yearly, params)
 
-        if params.key?(:options) && params[:options].is_a?(Hash)
-          opt_interval = params[:options][:interval].to_s.to_i
-          interval = opt_interval unless opt_interval.zero?
-        end
+        day_of_year_list = Array(params[:options][:day_of_year]).map!(&:to_i)
+        rule.day_of_year(day_of_year_list)
 
-        rule = IceCube::Rule.yearly(interval)
-
-        if params.key?(:options) && params[:options].key?(:day_of_year) && params[:options][:day_of_year].is_a?(Array)
-          days = params[:options][:day_of_year].collect(&:to_i)
-          rule.day_of_year(*days)
-        end
-
-        if params.key?(:options) && params[:options].key?(:month_of_year) && params[:options][:month_of_year].is_a?(Array)
-          months = params[:options][:month_of_year].collect(&:to_sym)
-          rule.month_of_year(*months)
-        end
+        month_of_year_list = Array(params[:options][:month_of_year]).map!(&:to_sym)
+        rule.month_of_year(month_of_year_list)
 
         rule
+      end
+
+      private
+
+      def create_rule(method, params)
+        params[:options] ||= {}
+
+        interval = params[:options][:interval].to_s.to_i
+        interval = 1 if interval.zero?
+
+        IceCube::Rule.public_send(method, interval)
       end
     end
   end
