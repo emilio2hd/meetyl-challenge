@@ -1,7 +1,7 @@
-require 'recurrence/rule/base'
+require 'recurrence/creator/base'
 
 module Recurrence
-  module Rule
+  module Creator
     class Yearly < Base
       def initialize(params = {})
         super(:yearly, params)

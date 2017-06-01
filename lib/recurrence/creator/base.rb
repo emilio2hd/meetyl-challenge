@@ -1,5 +1,5 @@
 module Recurrence
-  module Rule
+  module Creator
     class Base
       def initialize(rule_name, params = {})
         @options = params[:options] ||= {}

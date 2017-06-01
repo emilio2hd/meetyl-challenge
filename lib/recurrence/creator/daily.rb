@@ -1,7 +1,7 @@
-require 'recurrence/rule/base'
+require 'recurrence/creator/base'
 
 module Recurrence
-  module Rule
+  module Creator
     class Daily < Base
       def initialize(params = {})
         super(:daily, params)
