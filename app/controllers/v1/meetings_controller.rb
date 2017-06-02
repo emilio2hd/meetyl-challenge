@@ -60,7 +60,15 @@ module V1
     end
 
     def invitation_params
-      params.require(:invitation).permit(:invitee_id)
+      day_of_week = params.dig(:invitation, :recurrence, :options, :day_of_week)
+      day_of_week = day_of_week.is_a?(ActionController::Parameters) ? day_of_week.to_unsafe_h : {}
+      day_of_week = day_of_week.collect { |key, _| { key => [] } }
+
+      recurrence_opt = [:interval, { day: [] }, { day_of_week: day_of_week }, { day_of_month: [] },
+                        { day_of_year: [] }, { month_of_year: [] } ]
+      recurrence_permit = [:type, :start_time, :end_time, { options: recurrence_opt }]
+
+      params.require(:invitation).permit(:invitee_id, recurrence: recurrence_permit)
     end
 
     def meeting_params

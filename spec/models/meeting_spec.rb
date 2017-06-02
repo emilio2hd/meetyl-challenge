@@ -48,10 +48,14 @@ RSpec.describe Meeting, type: :model do
     let(:invitee) { create(:user) }
     let(:meeting) { build(:meeting, creator: creator, date: '2017-05-31') }
     let(:rule_for_every_wednesday) do
-      IceCube::Schedule.new { |schedule| schedule.add_recurrence_rule(IceCube::Rule.weekly.day(:wednesday)) }
+      IceCube::Schedule.new(Time.zone.parse('2017-05-30T16:30')) do |schedule|
+        schedule.add_recurrence_rule(IceCube::Rule.weekly.day(:wednesday))
+      end
     end
     let(:rule_for_every_tuesday) do
-      IceCube::Schedule.new { |schedule| schedule.add_recurrence_rule(IceCube::Rule.weekly.day(:tuesday)) }
+      IceCube::Schedule.new(Time.zone.parse('2017-05-30T16:30')) do |schedule|
+        schedule.add_recurrence_rule(IceCube::Rule.weekly.day(:tuesday))
+      end
     end
 
     context 'and matches with meeting date' do

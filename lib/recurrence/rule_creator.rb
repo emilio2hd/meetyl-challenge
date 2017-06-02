@@ -4,7 +4,7 @@ require 'recurrence/creator/monthly'
 require 'recurrence/creator/yearly'
 
 module Recurrence
-  module Translator
+  module RuleCreator
     @creators = {}
 
     class << self
@@ -12,16 +12,16 @@ module Recurrence
         @creators[recurrence_type] = creator_klass
       end
 
-      def parse(input)
-        params = input.symbolize_keys
-        recurrence_type = params[:recurrence].to_s.to_sym
+      def create(recurrence)
+        params = recurrence.with_indifferent_access
+        recurrence_type = params[:type].to_sym
 
         creator_klass = @creators[recurrence_type]
         creator_klass.new(params).create
       end
 
-      def creators?(recurrence_type)
-        @creators.key? recurrence_type.to_sym
+      def creator?(recurrence_type)
+        @creators.key? recurrence_type.to_s.to_sym
       end
     end
 

@@ -60,13 +60,45 @@ RSpec.describe V1::MeetingsController, type: :controller do
     let(:meeting) { create(:meeting) }
     let(:invite_params) { { id: meeting.id, user_id: meeting.creator_id, invitation: { invitee_id: user.id } } }
 
-    it 'should create a new invitation' do
-      expect { post :invite, params: invite_params } .to change(Invitation, :count).by(1)
+    context 'with no recurrence' do
+      it 'should create a new invitation' do
+        expect { post :invite, params: invite_params }.to change(Invitation, :count).by(1)
+      end
+
+      it 'should return the invitation link' do
+        post :invite, params: invite_params
+        expect(json_response_body['invitation']).to_not be_empty
+      end
+
+      it 'should not create invitation recurrence' do
+        expect { post :invite, params: invite_params }.to_not change(InvitationRecurrence, :count)
+      end
     end
 
-    it 'should return the invitation link' do
-      post :invite, params: invite_params
-      expect(json_response_body['invitation']).to_not be_empty
+    context 'with recurrence' do
+      let(:recurrence_params) { { type: 'monthly', options: { day_of_week: { tuesday: %w(1 10) } } } }
+
+      before { invite_params[:invitation][:recurrence] = recurrence_params }
+
+      it 'creates a new invitation' do
+        expect { post :invite, params: invite_params }.to change(Invitation, :count).by(1)
+      end
+
+      it 'generates the invitation link' do
+        post :invite, params: invite_params
+        expect(json_response_body['invitation']).to_not be_empty
+      end
+
+      it 'creates a new invitation recurrence' do
+        expect { post :invite, params: invite_params }.to change(InvitationRecurrence, :count)
+      end
+
+      it 'creates an invitation recurrence' do
+        invite_params[:invitation][:recurrence] = { type: 'monthly', options: { day_of_week: { tuesday: %w(1 10) } } }
+        post :invite, params: invite_params
+        recurrence = InvitationRecurrence.find_by(creator_id: meeting.creator_id)
+        expect(recurrence.rule.to_s).to eq('Monthly on the 1st Tuesday and 10th Tuesday')
+      end
     end
   end
 

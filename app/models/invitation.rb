@@ -1,12 +1,18 @@
+require 'recurrence/rule_creator'
+
 class Invitation < ApplicationRecord
   enum status: [ :pending, :accepted, :declined ]
 
   belongs_to :meeting
   belongs_to :invitee, class_name: 'User', foreign_key: 'invitee_id'
 
+  attr_accessor :recurrence, :rule, :start_time, :end_time
+
   validates :meeting, :invitee, presence: true
+  validates_with RecurrenceValidator
 
   before_save :generate_access_code
+  after_save :create_invitation_recurrence
 
   def accepted!
     return if self[:status] == :accepted
@@ -32,5 +38,13 @@ class Invitation < ApplicationRecord
 
   def generate_access_code
     self[:access_code] = Base64.urlsafe_encode64("#{meeting_id}$#{invitee_id}$#{SecureRandom.uuid}")
+  end
+
+  def create_invitation_recurrence
+    options = end_time.nil? ? {} : { end_time: end_time }
+
+    recurrence_rule = IceCube::Schedule.new(start_time, options) { |schedule| schedule.add_recurrence_rule(@rule) }
+
+    InvitationRecurrence.create(creator: meeting.creator, user: invitee, rule: recurrence_rule) unless @rule.nil?
   end
 end
