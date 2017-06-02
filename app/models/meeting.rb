@@ -25,7 +25,7 @@ class Meeting < ApplicationRecord
   end
 
   def invite_if_match(recurrence)
-    Invitation.create!(meeting_id: id, invitee_id: recurrence.user_id) if recurrence.match?(date)
+    Invitation.create!(meeting_id: id, invitee_id: recurrence.user_id, recurrent: true) if recurrence.match?(date)
   rescue ActiveRecordError => error
     logger.error(error)
   end
