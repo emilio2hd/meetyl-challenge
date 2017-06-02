@@ -22,6 +22,6 @@ Design and code JSON API endpoints in the latest Rails.
 #### Even more points
 
 * - [x] Enable an invitation to have recurring rules, eg. Every Wednesday from today until a month from now.
-* - [ ] Allow a user to only accept one instance of a recurring meeting.
+* - [x] Allow a user to only accept one instance of a recurring meeting.
 
 Please commit often and tell a story of your process with your commit history.

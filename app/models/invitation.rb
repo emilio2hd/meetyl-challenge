@@ -6,9 +6,12 @@ class Invitation < ApplicationRecord
   belongs_to :meeting
   belongs_to :invitee, class_name: 'User', foreign_key: 'invitee_id'
 
+  scope :recurrent_accepted, ->(meeting_id) { where(meeting_id: meeting_id, recurrent: true, status: :accepted) }
+
   attr_accessor :recurrence, :rule, :start_time, :end_time
 
   validates :meeting, :invitee, presence: true
+  validate :check_if_there_is_recurrent
   validates_with RecurrenceValidator
 
   before_save :generate_access_code
@@ -35,6 +38,15 @@ class Invitation < ApplicationRecord
   end
 
   private
+
+  def check_if_there_is_recurrent
+    errors.add(:meeting, 'You have already accepted the invitation for this meeting') if invitation_recurrent?
+  end
+
+  def invitation_recurrent?
+    accepted? && self[:recurrent] == true &&
+      self.class.recurrent_accepted(self[:meeting_id]).count.positive?
+  end
 
   def generate_access_code
     self[:access_code] = Base64.urlsafe_encode64("#{meeting_id}$#{invitee_id}$#{SecureRandom.uuid}")

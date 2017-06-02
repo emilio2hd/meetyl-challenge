@@ -9,15 +9,11 @@ RSpec.describe InvitationRecurrence, type: :model do
   it { is_expected.to belong_to(:creator).class_name('User').with_foreign_key('creator_id') }
 
   it 'should serialize rule and save' do
-    user = create(:user)
     creator = create(:user)
 
-    schedule = IceCube::Schedule.new(Time.zone.now)
-    schedule.add_recurrence_rule IceCube::Rule.daily(3)
-
-    InvitationRecurrence.create(creator: creator, user: user, rule: schedule)
+    recurrence = create(:daily_invitation_recurrence, creator: creator)
 
     last_rule = InvitationRecurrence.find_by(creator: creator)
-    expect(last_rule.rule).to eq(schedule)
+    expect(last_rule.rule).to eq(recurrence.rule)
   end
 end
