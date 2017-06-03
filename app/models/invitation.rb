@@ -53,10 +53,12 @@ class Invitation < ApplicationRecord
   end
 
   def create_invitation_recurrence
-    options = end_time.nil? ? {} : { end_time: end_time }
+    return if @rule.nil?
 
-    recurrence_rule = IceCube::Schedule.new(start_time, options) { |schedule| schedule.add_recurrence_rule(@rule) }
+    @rule.until(end_time) if end_time
 
-    InvitationRecurrence.create(creator: meeting.creator, user: invitee, rule: recurrence_rule) unless @rule.nil?
+    recurrence_rule = IceCube::Schedule.new(start_time) { |schedule| schedule.add_recurrence_rule(@rule) }
+
+    InvitationRecurrence.create(creator: meeting.creator, user: invitee, rule: recurrence_rule)
   end
 end
