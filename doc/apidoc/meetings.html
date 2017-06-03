@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>MeetylChallenge v1</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Meetings
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Meetings
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/meetings/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /v1/users/:user_id/meetings
+          </a>
+          <br>
+          <small>List all user meetings either as creator or as invitee</small>
+        </h2>
+    </div>
+
+
+    <div id='description-index' class='collapse accordion-body'>
+      
+
+
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /v1/users/1/meetings
+200
+{
+  &quot;meetings&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;place&quot;: &quot;Columbia, The angelic Monument Tower&quot;,
+      &quot;date&quot;: &quot;2017-05-05&quot;,
+      &quot;time&quot;: &quot;10:00&quot;,
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/v1/users/1/meetings/1&quot;
+      }
+    }
+  ]
+}</pre>
+
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/meetings/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /v1/users/:user_id/meetings
+          </a>
+          <br>
+          <small>Create a meeting specifying a place, date, and time</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+  
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Description</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+			<tr>
+				<td><span class="label"> 400 </span></td>
+				<td>The meeting has validation errors</td>
+			</tr>
+	</tbody>
+</table>
+
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">POST /v1/users/1/meetings
+{
+  &quot;meeting&quot;: {
+    &quot;place&quot;: &quot;Columbia, The angelic Monument Tower&quot;,
+    &quot;date&quot;: &quot;2017-05-05&quot;,
+    &quot;time&quot;: &quot;10:00&quot;
+  }
+}
+201
+{
+  &quot;meeting&quot;: {
+    &quot;id&quot;: 1,
+    &quot;place&quot;: &quot;Columbia, The angelic Monument Tower&quot;,
+    &quot;date&quot;: &quot;2017-05-05&quot;,
+    &quot;time&quot;: &quot;10:00&quot;,
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/v1/users/1/meetings/1&quot;
+    }
+  }
+}</pre>
+    <pre class="prettyprint">POST /v1/users/1/meetings
+{
+  &quot;meeting&quot;: {
+    &quot;place&quot;: &quot;&quot;
+  }
+}
+400
+{
+  &quot;errors&quot;: {
+    &quot;place&quot;: [
+      &quot;can&#39;t be blank&quot;
+    ]
+  }
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>meeting </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting info</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[place] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting place</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[date] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting date</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Date</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[time] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting time</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Time</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[maximum_participants] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting maximum of participants</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/meetings/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /v1/users/:user_id/meetings/:id
+          </a>
+          <br>
+          <small>Get a meeting information</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+  
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Description</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+			<tr>
+				<td><span class="label label-inverse"> 404 </span></td>
+				<td>The meeting was not found</td>
+			</tr>
+	</tbody>
+</table>
+
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /v1/users/1/meetings/1
+200
+{
+  &quot;meeting&quot;: {
+    &quot;id&quot;: 1,
+    &quot;place&quot;: &quot;Columbia, The angelic Monument Tower&quot;,
+    &quot;date&quot;: &quot;2017-05-05&quot;,
+    &quot;time&quot;: &quot;10:00&quot;,
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/v1/users/1/meetings/1&quot;
+    }
+  }
+}</pre>
+    <pre class="prettyprint">GET /v1/users/1/meetings/-1
+404</pre>
+
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/meetings/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PUT /v1/users/:user_id/meetings/:id
+          </a>
+          <br>
+          <small>Update meeting information</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+  
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Description</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+			<tr>
+				<td><span class="label"> 400 </span></td>
+				<td>The meeting has validation errors</td>
+			</tr>
+			<tr>
+				<td><span class="label label-inverse"> 404 </span></td>
+				<td>The meeting was not found</td>
+			</tr>
+	</tbody>
+</table>
+
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">PUT /v1/users/1/meetings/1
+{
+  &quot;meeting&quot;: {
+    &quot;place&quot;: &quot;Statues of the Founding Fathers&quot;
+  }
+}
+200
+{
+  &quot;meeting&quot;: {
+    &quot;id&quot;: 1,
+    &quot;place&quot;: &quot;Statues of the Founding Fathers&quot;,
+    &quot;date&quot;: &quot;2017-05-05&quot;,
+    &quot;time&quot;: &quot;10:00&quot;,
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/v1/users/1/meetings/1&quot;
+    }
+  }
+}</pre>
+    <pre class="prettyprint">PUT /v1/users/1/meetings/1
+{
+  &quot;meeting&quot;: {
+    &quot;place&quot;: &quot;&quot;
+  }
+}
+400
+{
+  &quot;errors&quot;: {
+    &quot;name&quot;: [
+      &quot;can&#39;t be blank&quot;
+    ]
+  }
+}</pre>
+    <pre class="prettyprint">PUT /v1/users/1/meetings/-1
+404</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>meeting </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting info</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[place] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting place</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[date] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting date</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Date</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[time] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting time</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Time</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>meeting[maximum_participants] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Meeting maximum of participants</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/meetings/invite.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-invite'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /v1/users/:user_id/meetings/:id/invite
+          </a>
+          <br>
+          <small>Invite an user to a meeting</small>
+        </h2>
+    </div>
+
+
+    <div id='description-invite' class='collapse accordion-body'>
+      
+<h2 id="label-How+to+Specify+Invitation+Recurrence">How to Specify Invitation Recurrence<span><a href="#label-How+to+Specify+Invitation+Recurrence">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>You can specify the recurrence through the <code>{ invitation: {
+recurrence: {} }}</code></p>
+
+<h3 id="label-Daily">Daily<span><a href="#label-Daily">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Daily
+<dd>
+<p><code>recurrence: { type: &#39;daily&#39; }</code></p>
+</dd><dt>Every 3 days
+<dd>
+<p><code>recurrence: { type: &#39;daily&#39;, options: { interval: 3 }
+}</code></p>
+</dd></dl>
+
+<h3 id="label-Weekly">Weekly<span><a href="#label-Weekly">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Weekly
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39; }</code></p>
+</dd><dt>Every 2 weeks
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { interval: 2 }
+}</code></p>
+</dd><dt>Weekly on Mondays
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { day:
+[&#39;monday&#39;] } }</code></p>
+</dd><dt>Every 2 weeks on Mondays
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { interval: 2, day:
+[&#39;monday&#39;] } }</code></p>
+</dd></dl>
+
+<h3 id="label-Monthly">Monthly<span><a href="#label-Monthly">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Monthly
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39; }</code></p>
+</dd><dt>Every 2 months
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { interval: 2 }
+}</code></p>
+</dd><dt>Monthly on the 15th day of the month
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { day_of_month: [15] }
+}</code></p>
+</dd><dt>Monthly on the 10th and 20th days of the month
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { day_of_month: [10,
+20] } }</code></p>
+</dd><dt>Monthly on the 1st Tuesday and last Tuesday
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { day_of_week: {
+tuesday: [1, -1] } } }</code></p>
+</dd><dt>Every 2 months on the 1st Monday and last Tuesday
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { interval: 2,
+day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
+</dd></dl>
+
+<h3 id="label-Yearly">Yearly<span><a href="#label-Yearly">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Yearly
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39; }</code></p>
+</dd><dt>Every 2 years
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { interval: 2 }
+}</code></p>
+</dd><dt>Yearly on the 100th days from the beginning and end of the year
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { day_of_year: [100,
+-100] } }</code></p>
+</dd><dt>Yearly in March
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { month_of_year:
+[:march] } }</code></p>
+</dd><dt>Yearly in January and February
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { month_of_year:
+[:january, :february] } }</code></p>
+</dd></dl>
+
+
+
+  <h3>Errors</h3>
+  
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Description</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+			<tr>
+				<td><span class="label"> 400 </span></td>
+				<td>The invitation has validation errors</td>
+			</tr>
+			<tr>
+				<td><span class="label label-inverse"> 404 </span></td>
+				<td>The meeting was not found</td>
+			</tr>
+	</tbody>
+</table>
+
+
+  <h3>Metadata</h3>
+  <pre class="prettyprint lang-yaml">:recurrence:
+  :type: daily, weekly, monthly, yearly
+  :options:
+    :day: &quot;[monday, tuesday, wednesday, thursday, friday, saturday, sunday]&quot;
+    :day_of_week: &quot;[monday, tuesday, wednesday, thursday, friday, saturday, sunday]&quot;
+    :month_of_year: &quot;[january, february, march, april, may, june, july, august, september,
+      october, november, december]&quot;
+</pre>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">POST /v1/users/1/meetings/1/invite
+{
+  &quot;invitation&quot;: {
+    &quot;invitee_id&quot;: 1,
+    &quot;recurrence&quot;: {
+      &quot;type&quot;: &quot;weekly&quot;,
+      &quot;options&quot;: {
+        &quot;interval&quot;: 2,
+        &quot;day_of_week&quot;: {
+          &quot;monday&quot;: [
+            1
+          ],
+          &quot;tuesday&quot;: [
+            -1
+          ]
+        }
+      }
+    }
+  }
+}
+201
+{
+  &quot;invitation&quot;: {
+    &quot;invitee&quot;: 1,
+    &quot;meeting_link&quot;: &quot;http://test.com/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA==&quot;
+  }
+}</pre>
+    <pre class="prettyprint">POST /v1/users/1/meetings/1/invite
+{
+  &quot;invitation&quot;: {
+    &quot;recurrence&quot;: {
+      &quot;type&quot;: &quot;badly&quot;
+    }
+  }
+}
+400
+{
+  &quot;errors&quot;: {
+    &quot;recurrence&quot;: [
+      &quot;The type &#39;badly&#39; is not supported&quot;
+    ]
+  }
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>invitation </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Invitation info</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>invitation[invitee_id] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>User invitee id</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>invitation[recurrence] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Invitation recurrence</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][type] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Recurrence type</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][start_time] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>When the recurrence should start</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a DateTime</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][end_time] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>When the recurrence should end</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a DateTime</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][options] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Recurrence options</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][interval] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Recurrence interval</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The weekday name(s). Used with type: weekly</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day_of_month] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The day(s) of the month. Used with type: monthly</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day_of_week] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The weekday name(s) and its position(s) on month (1st Tuesday, 2nd Monday).
+Used with type: monthly</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day_of_year] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The day(s) of the year. Used with type: yearly</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][month_of_year] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The month(s) name. Used with type: yearly</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+
+
+
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/meetings/access.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-access'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /v1/meetings/:id/:access_code
+          </a>
+          <br>
+          <small>Access a meeting</small>
+        </h2>
+    </div>
+
+
+    <div id='description-access' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+  
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Description</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+			<tr>
+				<td><span class="label"> 400 </span></td>
+				<td>The meeting has validation errors</td>
+			</tr>
+			<tr>
+				<td><span class="label label-inverse"> 404 </span></td>
+				<td>The meeting with access_code was not found</td>
+			</tr>
+	</tbody>
+</table>
+
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA==
+200
+{
+  &quot;message&quot;: &quot;Welcome Booker Dewitt!&quot;
+}</pre>
+    <pre class="prettyprint">GET /v1/meetings/1/NSQ3JGQ2ZjAwODZmLTRmOWQtNDYwZi05ZDEzLTM5MzYzNGMwZTQyNw==
+400
+{
+  &quot;error&quot;: &quot;You must accept the invitation before access the meeting&quot;
+}</pre>
+    <pre class="prettyprint">GET /v1/meetings/-1/none
+404</pre>
+
+
+
+
+    </div>
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer></footer>
+  </div>
+  <script type='text/javascript' src='../apidoc/javascripts/bundled/jquery.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

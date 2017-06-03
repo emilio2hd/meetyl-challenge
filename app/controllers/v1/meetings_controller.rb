@@ -1,5 +1,7 @@
 module V1
   class MeetingsController < ApplicationController
+    include V1::MeetingsModule
+
     before_action :set_meeting, only: [:update, :invite]
 
     def index
@@ -56,7 +58,7 @@ module V1
     private
 
     def set_meeting
-      @meeting = Meeting.find_by(creator_id: params[:user_id], id: params[:id])
+      @meeting = Meeting.find_by!(creator_id: params[:user_id], id: params[:id])
     end
 
     def invitation_params
@@ -72,7 +74,7 @@ module V1
     end
 
     def meeting_params
-      params.require(:meeting).permit(:place, :date, :time, :user_id)
+      params.require(:meeting).permit(:place, :date, :time, :maximum_participants)
     end
   end
 end

@@ -1,0 +1,456 @@
+{
+  "users#index" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users",
+      "versions" : ["v1"],
+      "response_data" : {
+        "users": [
+          {
+            "id" : 1,
+            "name": "Booker",
+            "links": { "self": "/v1/users/1"}
+          },
+          {
+            "id" : 2,
+            "name": "Elizabeth",
+            "links": { "self": "/v1/users/2"}
+          }
+        ]
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "users#create" : [
+    {
+      "verb" : "POST",
+      "path" : "/v1/users",
+      "versions" : ["v1"],
+      "request_data" : {
+        "user": { "name": "Booker Dewitt" }
+      },
+      "response_data" : {
+        "user": {
+          "id": 1,
+          "name": "Booker Dewitt",
+          "links": { "self": "/v1/users/1"}
+        }
+      },
+      "code" : "201",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "POST",
+      "path" : "/v1/users",
+      "versions" : ["v1"],
+      "request_data" : {
+        "user": { "name": "" }
+      },
+      "response_data" : {
+        "errors": {
+          "name": ["can't be blank"]
+        }
+      },
+      "code" : "400",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "users#show" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1",
+      "versions" : ["v1"],
+      "response_data" : {
+        "user": {
+          "id": 1,
+          "name": "Booker",
+          "links": { "self": "/v1/users/1"}
+        }
+      },
+      "code" : "201",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/-1",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "users#update" : [
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1",
+      "versions" : ["v1"],
+      "request_data" : {
+        "user": { "name": "Comstock" }
+      },
+      "response_data" : {
+        "user": {
+          "id": 1,
+          "name": "Comstock",
+          "links": { "self": "/v1/users/1"}
+        }
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1",
+      "versions" : ["v1"],
+      "request_data" : {
+        "user": { "name": "" }
+      },
+      "response_data" : {
+        "errors": { "name": ["can't be blank"] }
+      },
+      "code" : "400",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/-1",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "invitations#index" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/invitations",
+      "versions" : ["v1"],
+      "response_data" : {
+        "invitations": [
+          {
+            "meeting_link" : "http://test.com/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA==",
+            "links": { "self": "/v1/users/1/invitations/1" },
+            "meeting": {
+              "id": 1,
+              "place": "16902 Emily Underpass",
+              "date": "2017-05-05",
+              "time": "10:00",
+              "links": { "self": "/v1/users/1/meetings/1" }
+            }
+          }
+        ]
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "invitations#show" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/invitations/1",
+      "versions" : ["v1"],
+      "response_data" : {
+        "invitation": {
+          "meeting_link" : "http://test.com/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA==",
+          "links": { "self": "/v1/users/1/invitations/1" },
+          "meeting": {
+            "id": 1,
+            "place": "Columbia, The angelic Monument Tower",
+            "date": "2017-05-05",
+            "time": "10:00",
+            "links": { "self": "/v1/users/1/meetings/1" }
+          }
+        }
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/invitations/-1",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "invitations#check_status" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/invitations/1/status",
+      "versions" : ["v1"],
+      "response_data" : {
+        "invitation": {
+          "status": "accepted"
+        }
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/invitations/-1/status",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "invitations#execute" : [
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1/invitations/1/execute",
+      "versions" : ["v1"],
+      "request_data" : {
+        "invitation": { "action": "accept" }
+      },
+      "response_data" : {
+        "invitation": { "status": "accepted" }
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1/invitations/1/execute",
+      "versions" : ["v1"],
+      "request_data" : {
+        "invitation": { "action": "" }
+      },
+      "response_data" : {
+        "errors": { "action": ["can't be blank"] }
+      },
+      "code" : "400",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1/invitations/-1/execute",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "meetings#index" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/meetings",
+      "versions" : ["v1"],
+      "response_data" : {
+        "meetings": [
+          {
+            "id": 1,
+            "place": "Columbia, The angelic Monument Tower",
+            "date": "2017-05-05",
+            "time": "10:00",
+            "links": { "self": "/v1/users/1/meetings/1" }
+          }
+        ]
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "meetings#create" : [
+    {
+      "verb" : "POST",
+      "path" : "/v1/users/1/meetings",
+      "versions" : ["v1"],
+      "request_data" : {
+        "meeting": {
+          "place": "Columbia, The angelic Monument Tower",
+          "date": "2017-05-05",
+          "time": "10:00"
+        }
+      },
+      "response_data" : {
+        "meeting": {
+          "id": 1,
+          "place": "Columbia, The angelic Monument Tower",
+          "date": "2017-05-05",
+          "time": "10:00",
+          "links": { "self": "/v1/users/1/meetings/1"}
+        }
+      },
+      "code" : "201",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "POST",
+      "path" : "/v1/users/1/meetings",
+      "versions" : ["v1"],
+      "request_data" : {
+        "meeting": { "place": "" }
+      },
+      "response_data" : {
+        "errors": {
+          "place": ["can't be blank"]
+        }
+      },
+      "code" : "400",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "meetings#show" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/meetings/1",
+      "versions" : ["v1"],
+      "response_data" : {
+        "meeting": {
+          "id": 1,
+          "place": "Columbia, The angelic Monument Tower",
+          "date": "2017-05-05",
+          "time": "10:00",
+          "links": { "self": "/v1/users/1/meetings/1" }
+        }
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/meetings/-1",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "meetings#update" : [
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1/meetings/1",
+      "versions" : ["v1"],
+      "request_data" : {
+        "meeting": { "place": "Statues of the Founding Fathers" }
+      },
+      "response_data" : {
+        "meeting": {
+          "id": 1,
+          "place": "Statues of the Founding Fathers",
+          "date": "2017-05-05",
+          "time": "10:00",
+          "links": { "self": "/v1/users/1/meetings/1" }
+        }
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1/meetings/1",
+      "versions" : ["v1"],
+      "request_data" : {
+        "meeting": { "place": "" }
+      },
+      "response_data" : {
+        "errors": { "name": ["can't be blank"] }
+      },
+      "code" : "400",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "PUT",
+      "path" : "/v1/users/1/meetings/-1",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "meetings#invite" : [
+    {
+      "verb" : "POST",
+      "path" : "/v1/users/1/meetings/1/invite",
+      "versions" : ["v1"],
+      "request_data" : {
+        "invitation": {
+          "invitee_id": 1,
+          "recurrence": {
+            "type": "weekly",
+            "options": {
+              "interval": 2,
+              "day_of_week": { "monday": [1], "tuesday": [-1] }
+            }
+          }
+        }
+      },
+      "response_data" : {
+        "invitation": {
+          "invitee": 1,
+          "meeting_link": "http://test.com/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA=="
+        }
+      },
+      "code" : "201",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "POST",
+      "path" : "/v1/users/1/meetings/1/invite",
+      "versions" : ["v1"],
+      "request_data" : {
+        "invitation": { "recurrence": { "type": "badly" } }
+      },
+      "response_data" : {
+        "errors": {
+          "recurrence": ["The type 'badly' is not supported"]
+        }
+      },
+      "code" : "400",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
+  "meetings#access" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA==",
+      "versions" : ["v1"],
+      "response_data" : {
+        "message": "Welcome Booker Dewitt!"
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "GET",
+      "path" : "/v1/meetings/1/NSQ3JGQ2ZjAwODZmLTRmOWQtNDYwZi05ZDEzLTM5MzYzNGMwZTQyNw==",
+      "versions" : ["v1"],
+      "response_data" : {
+        "error": "You must accept the invitation before access the meeting"
+      },
+      "code" : "400",
+      "show_in_doc" : 1,
+      "recorded" : true
+    },
+    {
+      "verb" : "GET",
+      "path" : "/v1/meetings/-1/none",
+      "versions" : ["v1"],
+      "code" : "404",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ]
+}

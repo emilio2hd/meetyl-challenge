@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  apipie
+
   namespace :v1 do
     resources :users, except: [:destroy] do
       resources :meetings, except: [:destroy] do
@@ -17,4 +19,6 @@ Rails.application.routes.draw do
 
     get 'meetings/:id/:access_code', to: 'meetings#access', as: :meeting_access
   end
+
+  root 'apipie/apipies#index'
 end

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li class='active'><a href='./apidoc.html'>MeetylChallenge v1</a></li>
+  
+</ul>
+
+<div>
+<p>Full Stack Developer – Code Challenge</p>
+</div>
+
+<h1 class='page-header'>Resources</h1>
+
+  <h2>
+    <a href='./apidoc/invitations.html'>
+      Invitations
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/invitations/index.html'>GET /v1/users/:user_id/invitations</a>
+            </td>
+            <td width='60%'>List user&#39;s invitation as invitee</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/invitations/show.html'>GET /v1/users/:user_id/invitations/:id</a>
+            </td>
+            <td width='60%'>Retrieve information about a meeting or invitation if they have an invitation</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/invitations/check_status.html'>GET /v1/users/:user_id/invitations/:id/status</a>
+            </td>
+            <td width='60%'>Check the status of an invitation they received</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/invitations/execute.html'>PUT /v1/users/:user_id/invitations/:id/execute</a>
+            </td>
+            <td width='60%'>Take action on the invitation</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/meetings.html'>
+      Meetings
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/meetings/index.html'>GET /v1/users/:user_id/meetings</a>
+            </td>
+            <td width='60%'>List all user meetings either as creator or as invitee</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/meetings/create.html'>POST /v1/users/:user_id/meetings</a>
+            </td>
+            <td width='60%'>Create a meeting specifying a place, date, and time</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/meetings/show.html'>GET /v1/users/:user_id/meetings/:id</a>
+            </td>
+            <td width='60%'>Get a meeting information</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/meetings/update.html'>PUT /v1/users/:user_id/meetings/:id</a>
+            </td>
+            <td width='60%'>Update meeting information</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/meetings/invite.html'>POST /v1/users/:user_id/meetings/:id/invite</a>
+            </td>
+            <td width='60%'>Invite an user to a meeting</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/meetings/access.html'>GET /v1/meetings/:id/:access_code</a>
+            </td>
+            <td width='60%'>Access a meeting</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/users.html'>
+      Users
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/users/index.html'>GET /v1/users</a>
+            </td>
+            <td width='60%'>List users</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/users/create.html'>POST /v1/users</a>
+            </td>
+            <td width='60%'>Add a new user</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/users/show.html'>GET /v1/users/:id</a>
+            </td>
+            <td width='60%'>Get user information</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/users/update.html'>PUT /v1/users/:id</a>
+            </td>
+            <td width='60%'>Update user information</td>
+          </tr>
+    </tbody>
+  </table>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer></footer>
+  </div>
+  <script type='text/javascript' src='./apidoc/javascripts/bundled/jquery.js'></script>
+<script type='text/javascript' src='./apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='./apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='./apidoc/javascripts/apipie.js'></script>
+</body>
+</html>
