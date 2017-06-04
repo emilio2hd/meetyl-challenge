@@ -18,6 +18,14 @@ class Meeting < ApplicationRecord
 
   after_commit :fire_recurrence_invitation
 
+  def increment_participants!
+    increment(:participants_count).save! if maximum_participants?
+  end
+
+  def declined_participants!
+    decrement(:participants_count).save! if maximum_participants?
+  end
+
   private
 
   def fire_recurrence_invitation
@@ -28,6 +36,10 @@ class Meeting < ApplicationRecord
     Invitation.create!(meeting_id: id, invitee_id: recurrence.user_id, recurrent: true) if recurrence.match?(date)
   rescue ActiveRecordError => error
     logger.error(error)
+  end
+
+  def maximum_participants?
+    self[:maximum_participants].positive?
   end
 
   def check_maximum_participants

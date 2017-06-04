@@ -33,6 +33,7 @@ RSpec.describe Invitation, type: :model do
     it 'should change invitation status' do
       invitation = create(:invitation)
       meeting = invitation.meeting
+      meeting.update_attribute(:maximum_participants, 1)
       invitation.accepted!
 
       invitation.reload

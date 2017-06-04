@@ -22,7 +22,7 @@ class Invitation < ApplicationRecord
 
     transaction do
       self[:status] = :accepted
-      meeting.increment(:participants_count).save!
+      meeting.increment_participants!
       save!
     end
   end
@@ -32,7 +32,7 @@ class Invitation < ApplicationRecord
 
     transaction do
       self[:status] = :declined
-      meeting.decrement(:participants_count).save!
+      meeting.declined_participants!
       save!
     end
   end
