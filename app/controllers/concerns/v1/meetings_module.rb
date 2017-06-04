@@ -77,10 +77,10 @@ Every 2 weeks on Mondays:: <tt>recurrence: { type: 'weekly', options: { interval
 === Monthly
 Monthly:: <tt>recurrence: { type: 'monthly' }</tt>
 Every 2 months:: <tt>recurrence: { type: 'monthly', options: { interval: 2 } }</tt>
-Monthly on the 15th day of the month:: <tt>recurrence: { type: 'weekly', options: { day_of_month: [15] } }</tt>
-Monthly on the 10th and 20th days of the month:: <tt>recurrence: { type: 'weekly', options: { day_of_month: [10, 20] } }</tt>
-Monthly on the 1st Tuesday and last Tuesday:: <tt>recurrence: { type: 'weekly', options: { day_of_week: { tuesday: [1, -1] } } }</tt>
-Every 2 months on the 1st Monday and last Tuesday:: <tt>recurrence: { type: 'weekly', options: { interval: 2, day_of_week: { monday: [1], tuesday: [-1] } } }</tt>
+Monthly on the 15th day of the month:: <tt>recurrence: { type: 'monthly', options: { day_of_month: [15] } }</tt>
+Monthly on the 10th and 20th days of the month:: <tt>recurrence: { type: 'monthly', options: { day_of_month: [10, 20] } }</tt>
+Monthly on the 1st Tuesday and last Tuesday:: <tt>recurrence: { type: 'monthly', options: { day_of_week: { tuesday: [1, -1] } } }</tt>
+Every 2 months on the 1st Monday and last Tuesday:: <tt>recurrence: { type: 'monthly', options: { interval: 2, day_of_week: { monday: [1], tuesday: [-1] } } }</tt>
 
 === Yearly
 Yearly:: <tt>recurrence: { type: 'yearly' }</tt>

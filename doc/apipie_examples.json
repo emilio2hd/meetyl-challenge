@@ -384,7 +384,7 @@
       "versions" : ["v1"],
       "request_data" : {
         "invitation": {
-          "invitee_id": 1,
+          "invitee_id": 2,
           "recurrence": {
             "type": "weekly",
             "options": {
@@ -396,7 +396,7 @@
       },
       "response_data" : {
         "invitation": {
-          "invitee": 1,
+          "invitee": "Elizabeth",
           "meeting_link": "http://test.com/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA=="
         }
       },
