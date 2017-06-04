@@ -694,19 +694,19 @@ recurrence: {} }}</code></p>
 }</code></p>
 </dd><dt>Monthly on the 15th day of the month
 <dd>
-<p><code>recurrence: { type: &#39;weekly&#39;, options: { day_of_month: [15] }
-}</code></p>
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { day_of_month: [15]
+} }</code></p>
 </dd><dt>Monthly on the 10th and 20th days of the month
 <dd>
-<p><code>recurrence: { type: &#39;weekly&#39;, options: { day_of_month: [10,
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { day_of_month: [10,
 20] } }</code></p>
 </dd><dt>Monthly on the 1st Tuesday and last Tuesday
 <dd>
-<p><code>recurrence: { type: &#39;weekly&#39;, options: { day_of_week: {
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { day_of_week: {
 tuesday: [1, -1] } } }</code></p>
 </dd><dt>Every 2 months on the 1st Monday and last Tuesday
 <dd>
-<p><code>recurrence: { type: &#39;weekly&#39;, options: { interval: 2,
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { interval: 2,
 day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
 </dd></dl>
 
@@ -736,7 +736,7 @@ day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
             <pre class="wiki">POST /v1/users/1/meetings/1/invite
 {
   &quot;invitation&quot;: {
-    &quot;invitee_id&quot;: 1,
+    &quot;invitee_id&quot;: 2,
     &quot;recurrence&quot;: {
       &quot;type&quot;: &quot;weekly&quot;,
       &quot;options&quot;: {
@@ -756,7 +756,7 @@ day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
 201
 {
   &quot;invitation&quot;: {
-    &quot;invitee&quot;: 1,
+    &quot;invitee&quot;: &quot;Elizabeth&quot;,
     &quot;meeting_link&quot;: &quot;http://test.com/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA==&quot;
   }
 }</pre>
@@ -917,7 +917,7 @@ day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
  ]
       </small>
       
-<p>The weekday name(s). Used with type: weekly</p>
+<p>The weekday name(s)</p>
 
     </li>
     
@@ -931,7 +931,7 @@ day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
  ]
       </small>
       
-<p>The day(s) of the month. Used with type: monthly</p>
+<p>The day(s) of the month</p>
 
     </li>
     
@@ -945,8 +945,7 @@ day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
  ]
       </small>
       
-<p>The weekday name(s) and its position(s) on month (1st Tuesday, 2nd Monday).
-Used with type: monthly</p>
+<p>The weekday name(s) and its position(s) on month (1st Tuesday, 2nd Monday)</p>
 
     </li>
     
@@ -960,7 +959,7 @@ Used with type: monthly</p>
  ]
       </small>
       
-<p>The day(s) of the year. Used with type: yearly</p>
+<p>The day(s) of the year</p>
 
     </li>
     
@@ -974,7 +973,7 @@ Used with type: monthly</p>
  ]
       </small>
       
-<p>The month(s) name. Used with type: yearly</p>
+<p>The month(s) name</p>
 
     </li>
     
