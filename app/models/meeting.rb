@@ -22,8 +22,8 @@ class Meeting < ApplicationRecord
     increment(:participants_count).save! if maximum_participants?
   end
 
-  def declined_participants!
-    decrement(:participants_count).save! if maximum_participants?
+  def decrement_participants!
+    decrement(:participants_count).save! if maximum_participants? && self[:participants_count].positive?
   end
 
   private

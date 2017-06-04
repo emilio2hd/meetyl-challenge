@@ -32,7 +32,7 @@ class Invitation < ApplicationRecord
 
     transaction do
       self[:status] = :declined
-      meeting.declined_participants!
+      meeting.decrement_participants!
       save!
     end
   end
