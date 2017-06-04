@@ -44,11 +44,11 @@ module V1::MeetingsModule
       param :end_time, DateTime, desc: 'When the recurrence should end'
       param :options, Hash, desc: 'Recurrence options' do
         param :interval, Integer, desc: 'Recurrence interval'
-        param :day, Array, of: String, desc: 'The weekday name(s). Used with type: weekly'
-        param :day_of_month, Array, of: Integer, desc: 'The day(s) of the month. Used with type: monthly'
-        param :day_of_week, Hash, desc: 'The weekday name(s) and its position(s) on month (1st Tuesday, 2nd Monday). Used with type: monthly'
-        param :day_of_year, Array, of: Integer, desc: 'The day(s) of the year. Used with type: yearly'
-        param :month_of_year, Array, of: String, desc: 'The month(s) name. Used with type: yearly'
+        param :day, Array, of: String, desc: 'The weekday name(s)'
+        param :day_of_month, Array, of: Integer, desc: 'The day(s) of the month'
+        param :day_of_week, Hash, desc: 'The weekday name(s) and its position(s) on month (1st Tuesday, 2nd Monday)'
+        param :day_of_year, Array, of: Integer, desc: 'The day(s) of the year'
+        param :month_of_year, Array, of: String, desc: 'The month(s) name'
       end
     end
   end
