@@ -14,7 +14,7 @@ class Invitation < ApplicationRecord
   validate :check_if_there_is_recurrent
   validates_with RecurrenceValidator
 
-  before_save :generate_access_code
+  before_create :generate_access_code
   after_save :create_invitation_recurrence
 
   def accepted!
