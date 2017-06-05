@@ -11,7 +11,7 @@ module V1
 
       starting = start_time ? "Starting at #{I18n.localize(start_time, format: '%Y-%m-%d')}, " : ''
 
-      "#{starting}#{object.rule.to_s}"
+      "#{starting}#{object.rule}"
     end
   end
 end
