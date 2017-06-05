@@ -243,6 +243,24 @@
       "recorded" : true
     }
   ],
+  "invitation_recurrences#index" : [
+    {
+      "verb" : "GET",
+      "path" : "/v1/users/1/invitation_recurrences ",
+      "versions" : ["v1"],
+      "response_data" : {
+        "invitation_recurrences": [
+          {
+            "target_user": "Elizabeth",
+            "rule_description": "Starting at 2017-06-04, Yearly on the 13th day of the month on Fridays in October"
+          }
+        ]
+      },
+      "code" : "200",
+      "show_in_doc" : 1,
+      "recorded" : true
+    }
+  ],
   "meetings#index" : [
     {
       "verb" : "GET",

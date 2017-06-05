@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'invitation_recurrences/index'
+
   apipie
 
   namespace :v1 do
@@ -15,6 +17,8 @@ Rails.application.routes.draw do
           put :execute
         end
       end
+
+      resources :invitation_recurrences, only: [:index]
     end
 
     get 'meetings/:id/:access_code', to: 'meetings#access', as: :meeting_access

@@ -1,3 +1,7 @@
+  <h4><a href='#invitation_recurrences'>Invitation recurrences</a></h4>
+  <ul>
+      <li><a href='#invitation_recurrences-index'>index</a></li>
+  </ul>
   <h4><a href='#invitations'>Invitations</a></h4>
   <ul>
       <li><a href='#invitations-index'>index</a></li>
@@ -23,6 +27,50 @@
   </ul>
 
 
+
+  <hr/>
+
+  <div>
+    <h2 id="invitation_recurrences">
+      <a href='#invitation_recurrences'>Invitation recurrences</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="invitation_recurrences-index">
+      <a href='#invitation_recurrences'>Invitation recurrences</a> / <a href='#invitation_recurrences-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /v1/users/:user_id/invitation_recurrences
+            <br>
+            <small>List all user's recurrence, as creator</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /v1/users/1/invitation_recurrences 
+200
+{
+  &quot;invitation_recurrences&quot;: [
+    {
+      &quot;target_user&quot;: &quot;Elizabeth&quot;,
+      &quot;rule_description&quot;: &quot;Starting at 2017-06-04, Yearly on the 13th day of the month on Fridays in October&quot;
+    }
+  ]
+}</pre>
+
+
+      </div>
+  </div>
 
   <hr/>
 
