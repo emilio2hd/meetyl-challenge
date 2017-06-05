@@ -1,10 +1,10 @@
+require 'invitation/action/base_action'
 require 'invitation/action/action_result'
 
 module Invitation::Action
-  class Decline
+  class Decline < BaseAction
     def execute!(invitation)
-      invitation.declined!
-      Invitation::Action::ActionResult.new(invitation)
+      execute_action(invitation, &:declined!)
     end
   end
 end

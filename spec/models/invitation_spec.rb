@@ -33,6 +33,7 @@ RSpec.describe Invitation, type: :model do
     it 'should change invitation status' do
       invitation = create(:invitation)
       meeting = invitation.meeting
+      meeting.update_attribute(:maximum_participants, 1)
       invitation.accepted!
 
       invitation.reload
@@ -71,6 +72,20 @@ RSpec.describe Invitation, type: :model do
             .to raise_error(ActiveRecord::RecordInvalid)
             .with_message(/Meeting overbooked, maximum participants has been reached/)
         end
+      end
+    end
+
+    context 'when has an invitation for recurrent meeting already accepted' do
+      let(:invitee) { create(:user) }
+      let(:meeting) { create(:meeting) }
+      let(:invitation_duplicated) { create(:recurrent_invitation, meeting: meeting, invitee: invitee) }
+
+      before { create(:recurrent_accepted_invitation, meeting: meeting, invitee: invitee) }
+
+      it 'should not accept another recurrent invitation' do
+        expect { invitation_duplicated.accepted! }
+          .to raise_error(ActiveRecord::RecordInvalid)
+          .with_message(/You have already accepted the invitation for this meeting/)
       end
     end
   end

@@ -2,6 +2,8 @@ require 'invitation/action_locator'
 
 module V1
   class InvitationsController < ApplicationController
+    include V1::InvitationsModule
+
     before_action :set_invitation, only: [:show, :check_status, :execute]
 
     def index

@@ -1,5 +1,7 @@
 module V1
   class UsersController < ApplicationController
+    include V1::UsersModule
+
     before_action :set_user, only: [:show, :update]
 
     def index

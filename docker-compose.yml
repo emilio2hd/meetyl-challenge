@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  web:
+    image: meetyl_api
+    container_name: meetyl-api
+    build: .
+    ports:
+      - "9292:9292"
+    environment:
+      - SECRET_KEY_BASE=b626c7b93e8d5f8747030393f6573a7574d8f47a12c0d503bf1302ec20ad4ed8e0ab36b0052bd0f6bcda671f0f0fe3f527cea1379646b3b3ad988dbf3c050d45
+      - RAILS_URL_HOST=localhost:9292

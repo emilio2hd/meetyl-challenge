@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../../apidoc.html'>MeetylChallenge v1</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../apidoc/meetings.html'>
+      Meetings
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>invite</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      POST /v1/users/:user_id/meetings/:id/invite
+      <br>
+      <small>Invite an user to a meeting</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+<h2 id="label-How+to+Specify+Invitation+Recurrence">How to Specify Invitation Recurrence<span><a href="#label-How+to+Specify+Invitation+Recurrence">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>You can specify the recurrence through the <code>{ invitation: {
+recurrence: {} }}</code></p>
+
+<h3 id="label-Daily">Daily<span><a href="#label-Daily">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Daily
+<dd>
+<p><code>recurrence: { type: &#39;daily&#39; }</code></p>
+</dd><dt>Every 3 days
+<dd>
+<p><code>recurrence: { type: &#39;daily&#39;, options: { interval: 3 }
+}</code></p>
+</dd></dl>
+
+<h3 id="label-Weekly">Weekly<span><a href="#label-Weekly">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Weekly
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39; }</code></p>
+</dd><dt>Every 2 weeks
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { interval: 2 }
+}</code></p>
+</dd><dt>Weekly on Mondays
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { day:
+[&#39;monday&#39;] } }</code></p>
+</dd><dt>Every 2 weeks on Mondays
+<dd>
+<p><code>recurrence: { type: &#39;weekly&#39;, options: { interval: 2, day:
+[&#39;monday&#39;] } }</code></p>
+</dd></dl>
+
+<h3 id="label-Monthly">Monthly<span><a href="#label-Monthly">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Monthly
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39; }</code></p>
+</dd><dt>Every 2 months
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { interval: 2 }
+}</code></p>
+</dd><dt>Monthly on the 15th day of the month
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { day_of_month: [15]
+} }</code></p>
+</dd><dt>Monthly on the 10th and 20th days of the month
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { day_of_month: [10,
+20] } }</code></p>
+</dd><dt>Monthly on the 1st Tuesday and last Tuesday
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { day_of_week: {
+tuesday: [1, -1] } } }</code></p>
+</dd><dt>Every 2 months on the 1st Monday and last Tuesday
+<dd>
+<p><code>recurrence: { type: &#39;monthly&#39;, options: { interval: 2,
+day_of_week: { monday: [1], tuesday: [-1] } } }</code></p>
+</dd></dl>
+
+<h3 id="label-Yearly">Yearly<span><a href="#label-Yearly">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>Yearly
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39; }</code></p>
+</dd><dt>Every 2 years
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { interval: 2 }
+}</code></p>
+</dd><dt>Yearly on the 100th days from the beginning and end of the year
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { day_of_year: [100,
+-100] } }</code></p>
+</dd><dt>Yearly in March
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { month_of_year:
+[:march] } }</code></p>
+</dd><dt>Yearly in January and February
+<dd>
+<p><code>recurrence: { type: &#39;yearly&#39;, options: { month_of_year:
+[:january, :february] } }</code></p>
+</dd></dl>
+
+
+
+  <h2>Errors</h2>
+  
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Description</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+			<tr>
+				<td><span class="label"> 400 </span></td>
+				<td>The invitation has validation errors</td>
+			</tr>
+			<tr>
+				<td><span class="label label-inverse"> 404 </span></td>
+				<td>The meeting was not found</td>
+			</tr>
+	</tbody>
+</table>
+
+
+  <h2>Metadata</h2>
+  <pre class="prettyprint lang-yaml">:recurrence:
+  :type: daily, weekly, monthly, yearly
+  :options:
+    :day: &quot;[monday, tuesday, wednesday, thursday, friday, saturday, sunday]&quot;
+    :day_of_week: &quot;[monday, tuesday, wednesday, thursday, friday, saturday, sunday]&quot;
+    :month_of_year: &quot;[january, february, march, april, may, june, july, august, september,
+      october, november, december]&quot;
+</pre>
+
+
+  <h2>Examples</h2>
+    <pre class="prettyprint">POST /v1/users/1/meetings/1/invite
+{
+  &quot;invitation&quot;: {
+    &quot;invitee_id&quot;: 2,
+    &quot;recurrence&quot;: {
+      &quot;type&quot;: &quot;weekly&quot;,
+      &quot;options&quot;: {
+        &quot;interval&quot;: 2,
+        &quot;day_of_week&quot;: {
+          &quot;monday&quot;: [
+            1
+          ],
+          &quot;tuesday&quot;: [
+            -1
+          ]
+        }
+      }
+    }
+  }
+}
+201
+{
+  &quot;invitation&quot;: {
+    &quot;invitee&quot;: &quot;Elizabeth&quot;,
+    &quot;meeting_link&quot;: &quot;http://test.com/v1/meetings/1/NCQ3JDJkMjUxNjhjLTMwOTQtNDc2YS05ZWIzLTIwODUxN2M5YTg3MA==&quot;
+  }
+}</pre>
+    <pre class="prettyprint">POST /v1/users/1/meetings/1/invite
+{
+  &quot;invitation&quot;: {
+    &quot;recurrence&quot;: {
+      &quot;type&quot;: &quot;badly&quot;
+    }
+  }
+}
+400
+{
+  &quot;errors&quot;: {
+    &quot;recurrence&quot;: [
+      &quot;The type &#39;badly&#39; is not supported&quot;
+    ]
+  }
+}</pre>
+
+  <h2>Params</h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>invitation </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Invitation info</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>invitation[invitee_id] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>User invitee id</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>invitation[recurrence] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Invitation recurrence</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][type] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Recurrence type</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][start_time] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>When the recurrence should start</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a DateTime</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][end_time] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>When the recurrence should end</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a DateTime</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>invitation[recurrence][options] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Recurrence options</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][interval] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Recurrence interval</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The weekday name(s)</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day_of_month] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The day(s) of the month</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day_of_week] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The weekday name(s) and its position(s) on month (1st Tuesday, 2nd Monday)</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be a Hash</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][day_of_year] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The day(s) of the year</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of Integer</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(240,240,240);'>
+    <td>
+      <strong>invitation[recurrence][options][month_of_year] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The month(s) name</p>
+
+        <p><strong>Validations:</strong></p>
+        <ul>
+            <li>
+<p>Must be an array of String</p>
+</li>
+        </ul>
+
+    </td>
+
+  </tr>
+
+  
+
+
+
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer></footer>
+  </div>
+  <script type='text/javascript' src='../../apidoc/javascripts/bundled/jquery.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

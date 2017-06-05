@@ -1,5 +1,7 @@
 module V1
   class MeetingsController < ApplicationController
+    include V1::MeetingsModule
+
     before_action :set_meeting, only: [:update, :invite]
 
     def index
@@ -56,15 +58,23 @@ module V1
     private
 
     def set_meeting
-      @meeting = Meeting.find_by(creator_id: params[:user_id], id: params[:id])
+      @meeting = Meeting.find_by!(creator_id: params[:user_id], id: params[:id])
     end
 
     def invitation_params
-      params.require(:invitation).permit(:invitee_id)
+      day_of_week = params.dig(:invitation, :recurrence, :options, :day_of_week)
+      day_of_week = day_of_week.is_a?(ActionController::Parameters) ? day_of_week.to_unsafe_h : {}
+      day_of_week = day_of_week.collect { |key, _| { key => [] } }
+
+      recurrence_opt = [:interval, { day: [] }, { day_of_week: day_of_week }, { day_of_month: [] },
+                        { day_of_year: [] }, { month_of_year: [] } ]
+      recurrence_permit = [:type, :start_time, :end_time, { options: recurrence_opt }]
+
+      params.require(:invitation).permit(:invitee_id, recurrence: recurrence_permit)
     end
 
     def meeting_params
-      params.require(:meeting).permit(:place, :date, :time, :user_id)
+      params.require(:meeting).permit(:place, :date, :time, :maximum_participants)
     end
   end
 end

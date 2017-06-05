@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530015247) do
+ActiveRecord::Schema.define(version: 20170602122009) do
+
+  create_table "invitation_recurrences", force: :cascade do |t|
+    t.integer "creator_id", null: false
+    t.integer "user_id",    null: false
+    t.text    "rule"
+    t.index ["user_id"], name: "index_invitation_recurrences_on_user_id"
+  end
 
   create_table "invitations", force: :cascade do |t|
-    t.integer "meeting_id",                          null: false
-    t.integer "invitee_id",                          null: false
-    t.string  "access_code", limit: 255,             null: false
+    t.integer "meeting_id",                              null: false
+    t.integer "invitee_id",                              null: false
+    t.string  "access_code", limit: 255,                 null: false
     t.integer "status",                  default: 0
+    t.boolean "recurrent",               default: false, null: false
     t.index ["meeting_id", "access_code"], name: "index_invitations_on_meeting_id_and_access_code"
     t.index ["meeting_id"], name: "index_invitations_on_meeting_id"
   end
